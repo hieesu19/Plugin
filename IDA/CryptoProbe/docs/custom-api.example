@@ -2,17 +2,32 @@
   "schema": 1,
   "apis": [
     {
-      "names": ["my_xtea"],
+      "names": ["my_xtea_cbc"],
       "argc": 4,
       "event": "direct",
       "algorithm": "XTEA",
       "mode": "CBC",
       "fields": [
-        {"role": "key", "arg": 1, "kind": "bytes", "length": 16},
-        {"role": "iv", "arg": 2, "kind": "bytes", "length": 8}
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length": 16
+        },
+        {
+          "role": "iv",
+          "arg": 2,
+          "kind": "bytes",
+          "length": 8
+        }
       ],
       "success": "void",
-      "writes": [{"arg": 0, "length_arg": 3}]
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 3
+        }
+      ]
     }
   ]
 }
