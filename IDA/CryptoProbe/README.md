@@ -1,21 +1,14 @@
-# Crypto Probe — IDA plugin chạy offline
+# Crypto Probe
 
-Crypto Probe hỗ trợ xác định vị trí code crypto, nhận diện thuật toán, lần nguồn tham số và đọc **key / IV / nonce / counter / AAD / tag / RSA numbers** khi có đủ bằng chứng. Plugin có hai nhánh: phân tích static từ IDA database/Hex-Rays và capture dữ liệu thật khi debug.
+Plugin IDA để tìm code crypto, lần nguồn key/IV/nonce và lấy các giá trị này khi debug. Hỗ trợ lời gọi thư viện và một số dạng tự implement như TEA, RC4, ChaCha, XOR byte.
 
-Phiên bản source: **1.3.0**. Plugin hoạt động độc lập với CyberDesk.
+Phiên bản: **1.3.0**.
 
-## Cài đặt và sử dụng
+## Cài đặt
 
-### Yêu cầu
+Cần **IDA Pro 9.x**, IDAPython dùng Python 3.9 trở lên. Đã kiểm tra với IDA 9.1 và Hex-Rays x64. Plugin chạy offline trong IDA, không cần cài thêm package Python.
 
-- **IDA Pro 9.x + IDAPython, Python ≥ 3.9**. Phiên bản 1.3.0 đã được kiểm chứng trước đó trên IDA Pro 9.1 với Hex-Rays x64; các môi trường khác cần kiểm tra tương thích.
-- Hex-Rays phù hợp với kiến trúc binary giúp lần tham số và dựng lại buffer. Khi thiếu decompiler, plugin vẫn có thể tìm API callsite, instructions và constant tables; khả năng data flow sẽ hạn chế hơn.
-- Debug capture cần debugger của IDA có thể đọc registers và memory của target. Plugin chạy bằng Python bên trong IDA đang mở; IDA Windows không dùng venv Python của WSL.
-- Runtime chỉ dùng **Python standard library và IDAPython APIs**. Không cần pip, Internet, YARA, MCP hoặc app CyberDesk đang chạy.
-
-### Cài vào IDA
-
-Copy **hai mục cạnh nhau** vào thư mục `plugins` mà bản IDA của bạn đang dùng:
+Copy `crypto_probe_plugin.py` và folder `crypto_probe` vào thư mục plugins của IDA:
 
 ```text
 IDA/plugins/
@@ -23,32 +16,29 @@ IDA/plugins/
 └── crypto_probe/
     ├── __init__.py
     ├── ...
-    └── rules/
-        └── builtin.json
+    └── rules/builtin.json
 ```
 
-Không chỉ copy loader `.py`; loader cần package `crypto_probe/` đi kèm. README và `docs/` dành cho người đọc, không bắt buộc copy vào IDA.
+Restart IDA, mở binary và đợi auto-analysis. Trong Output sẽ có dòng `[Crypto Probe] Offline plugin ready`. Mở plugin tại **Edit → Plugins → Crypto Probe (offline)**.
 
-Restart IDA, mở binary và chờ auto-analysis. Output sẽ có thông báo `[Crypto Probe] Offline plugin ready`. Mở bảng tại **Edit → Plugins → Crypto Probe (offline)**.
+Khi cập nhật, thay cả file `.py` và folder `crypto_probe`, rồi restart IDA.
 
-Khi cập nhật, copy đè cả loader và package, rồi restart IDA để tránh dùng lẫn module Python của hai phiên bản.
+## Sử dụng
 
-### Quét static
+### Quét code
 
-| Phím / thao tác | Chức năng |
+Đặt cursor trong hàm cần xem rồi dùng các phím sau:
+
+| Phím | Chức năng |
 |---|---|
-| **Ctrl+Alt+J** | Quét function đang đặt cursor; có bounded wrapper evaluation |
-| **Ctrl+Alt+R** | Quét function hiện tại và các function con đệ quy |
+| **Ctrl+Alt+J** | Quét hàm hiện tại |
+| **Ctrl+Alt+R** | Quét hàm hiện tại và các hàm con đệ quy |
 | **Ctrl+Alt+K** | Quét toàn database |
-| Double-click dòng kết quả | Mở JSON chi tiết, evidence và materials |
-| Chuột phải → Filter results | Lọc, ví dụ `aes cbc`, `rsa`, `debug`, `key` |
-| Chuột phải → Jump to selected address | Nhảy tới địa chỉ của finding |
-| Chuột phải → Copy selected key / private d | Copy vật liệu key/private exponent đã có |
-| Chuột phải → Copy selected nonce / IV | Copy nonce hoặc IV đã có |
+| **Ctrl+Alt+L** | Capture tham số tại vị trí đang dừng khi debug |
 
-Nếu hotkey trùng plugin khác, dùng action tương ứng trong **Edit → Plugins**.
+Nếu trùng hotkey, chọn action trong **Edit → Plugins**.
 
-Với recursive scan, nhập **`0` để đi hết các tầng tới được**; nhập `3` để lấy root ở tầng 0 và các function con tới tầng 3:
+Với `Ctrl+Alt+R`, nhập độ sâu muốn quét. Hàm gốc tính là tầng 0; nhập `0` để đi hết các tầng tìm được.
 
 ```text
 main                 tầng 0
@@ -57,82 +47,87 @@ main                 tầng 0
         └── encrypt  tầng 3
 ```
 
-Mỗi function trong scope được kiểm tra pattern/API. Discovery dựa trên các target xác định được qua code references/imports/tail calls và những address-taken targets có thể tìm thấy; indirect call chưa resolve có thể bị bỏ sót. Giới hạn hiện tại là **2.048 functions/lượt**. Esc/Cancel giữ lại kết quả partial và diagnostics.
+Ví dụ trên cần depth `3` để tới `encrypt`. Mỗi lượt giới hạn 2.048 hàm. Indirect call chưa xác định được đích có thể bị bỏ sót; Esc hủy lượt quét và giữ phần kết quả đã có.
 
-Độ sâu call graph khác độ sâu lần giá trị. Dù quét được function crypto sâu, key vẫn có thể unresolved nếu đường sinh key vượt khả năng interpreter. Các lượt quét cũng giữ phần dò constant/PEM trong data của database; data finding không tự chứng minh root function sử dụng dữ liệu đó.
+Hex-Rays giúp lần tham số và dựng lại buffer key. Nếu không có decompiler phù hợp, vẫn quét được API callsites, instructions và constant tables, nhưng thường không lấy đủ tham số static.
 
-### Đọc kết quả
+### Xem kết quả
 
-Bảng hiển thị **Address, Function/API, Algorithm, Mode, Confidence, Source, Materials**. Double-click để xem chi tiết; các trường địa chỉ trong JSON có dạng `0x140001abc`, có thể copy vào phím `G` của IDA. Length/counter/scalar vẫn là số, giá trị chưa biết là `null`.
+Double-click một dòng để mở JSON chi tiết. Địa chỉ ở cửa sổ này có dạng `0x140001abc`, có thể copy vào `G` của IDA để nhảy tới.
 
-| Trường | Cách hiểu |
+Chuột phải trong bảng để lọc, nhảy tới code, copy key/IV hoặc export. Ví dụ từ khóa lọc: `aes cbc`, `rsa`, `debug`, `key`.
+
+| Trường | Nội dung |
 |---|---|
-| `algorithm`, `mode` | Thuật toán/mode đã có evidence; `unknown` nếu chưa xác định |
-| `source` | `static` hoặc dữ liệu quan sát khi `debug` |
-| `confidence` | Loại bằng chứng, không phải phần trăm chính xác |
-| `evidence` | Địa chỉ và lý do nhận diện: API, instruction, structure, table, format… |
-| `materials` | Key/IV/nonce/tag/RSA numbers cùng độ dài, giá trị và trạng thái |
-| `diagnostics` | Unsupported flow, cancellation, hết budget hoặc lỗi phân tích |
+| `algorithm`, `mode` | Thuật toán và mode; `unknown` nếu chưa xác định |
+| `source` | Phân tích `static` hay capture từ `debug` |
+| `confidence` | Cách nhận diện: API, instruction, table, cấu trúc code… |
+| `evidence` | Địa chỉ và dấu hiệu đã tìm thấy |
+| `materials` | Key, IV, nonce, counter, AAD, tag hoặc các số RSA |
+| `diagnostics` | Lỗi, phần chưa phân tích được hoặc giới hạn đã chạm |
 
-Các confidence thường gặp: `api_contract`, `instruction_match`, `table_match`, `format_match`, `structural_match`, `candidate`.
+Trong `materials`, xem `status` để biết giá trị đã lấy được tới đâu:
 
-Các trạng thái materials:
-
-- `recovered`: static analysis khôi phục được giá trị.
-- `observed`: đọc được từ process đang debug.
-- `partial`: mới biết một phần bytes.
-- `pointer_only`: có địa chỉ object nhưng chưa có raw bytes.
-- `unresolved`: chưa đủ dữ liệu hoặc chưa chứng minh được length/role.
-- `output_pending`: cần chờ API return để đọc output.
-
-Nhận ra thuật toán không đồng nghĩa lấy được key. Constant table không phải key. Plugin giữ byte chưa biết dưới dạng unknown, không tự điền zero thành key hoàn chỉnh.
-
-### Capture key / IV / nonce khi debug
-
-1. Quét caller/phạm vi cần xem để plugin tạo API bindings.
-2. Cấu hình debugger và arguments bằng IDA bình thường.
-3. Chọn **Arm selected API callsite** hoặc **Arm known API callsites**. Nên bắt đầu với một phạm vi nhỏ; giới hạn tự Arm là 512 callsites.
-4. Start/Continue bằng IDA. Plugin bắt trước call để đọc input và sau return để đọc output/return status.
-5. Xem finding có `Source=debug`; dùng F9 khi muốn tiếp tục.
-6. Chọn **Disarm capture / owned breakpoints** khi xong.
-
-**Ctrl+Alt+L** capture thủ công tại instruction pointer đang suspended. Dừng đúng call instruction hoặc entry của function đã có API/manual binding. Dừng giữa function có thể không còn arguments ở vị trí ABI ban đầu.
-
-Key/IV được snapshot **trước call**; random buffer, output handle hoặc tag được đọc **sau successful return** theo API contract. Debug capture đọc memory mới từ debugger. Plugin không tự Continue/Step/call function trong target. Disarm chỉ dọn breakpoint plugin sở hữu theo cơ chế ownership.
-
-Nếu attach sau bước setup key, opaque handle có thể không đủ để lấy raw key: cần đặt capture sớm hơn và chạy lại tới API nhận key. Khi ABI tự nhận không đúng, dùng **Choose debugger ABI**. Các adapters hiện có: Win64, SysV x64, x86 cdecl/stdcall/fastcall, AArch64, ARM32; live debugger đã được kiểm chứng trước đó trên Win64.
-
-### Các nhóm thuật toán
-
-| Nhóm | Coverage chính |
+| Status | Ý nghĩa |
 |---|---|
-| AES-128/192/256 | ECB, CBC, CTR, CFB, OFB, GCM qua API/context; AES instructions và S-box fingerprints |
-| DES | ECB, CBC, CFB, OFB; API và table fingerprints |
-| RSA | API/context setters; PEM/DER PKCS#1, PKCS#8, SPKI và documented CNG/CryptoAPI key blobs |
-| RC4 | Raw-key setup/use APIs; KSA/PRGA structural candidates |
-| Salsa20 | API, ARX structure và shared constants |
-| ChaCha20 / XChaCha20 | API, nonce/counter layouts và ChaCha-family structural candidates |
-| ChaCha20-Poly1305 / XChaCha20-Poly1305 | API contracts cho key, nonce, AAD và tag |
-| TEA / XTEA / XXTEA | Delta, shifts, index/masks, key accesses; một số biến thể giữ dưới dạng candidate |
-| Custom đơn giản | Byte XOR/add/sub/rotate, constant/variable operands và một số SSE/AVX patterns |
-| Producer RNG/KDF | Theo output từ PBKDF2, RAND_bytes, getrandom, BCryptGenRandom tới consumer |
+| `recovered` | Tính được từ static analysis |
+| `observed` | Đọc được khi debug |
+| `partial` | Chỉ biết một phần bytes |
+| `pointer_only` | Có địa chỉ object, chưa có raw bytes |
+| `unresolved` | Chưa lấy được giá trị hoặc chưa xác định độ dài |
+| `output_pending` | Cần đợi API return |
 
-Có **109 API profiles / 127 tên API**, gồm OpenSSL, mbedTLS, libsodium, Nettle, tiny-AES và Windows BCrypt/CNG/CryptoAPI. Chi tiết prototype, argument index và return contract: [API_COVERAGE.md](docs/API_COVERAGE.md).
+Finding có `candidate` cần xem lại code. Một S-box hoặc nhóm phép toán giống crypto chưa đủ để kết luận thuật toán, mode hay key.
 
-DES-CTR cần custom binding, chưa có detector tự nhận mode cho code DES-CTR tự viết. DES-GCM không được hỗ trợ. Pattern quarter-round ChaCha/Salsa không tự chứng minh số round hoặc nonce variant. PEM không chứa thông tin padding/OAEP hash của ciphertext; public PEM chỉ có public numbers.
+### Lấy key khi debug
+
+1. Quét vùng code có bước setup key và encrypt/decrypt.
+2. Cấu hình debugger và arguments trong IDA.
+3. Chọn dòng cần bắt → **Arm selected API callsite**, hoặc dùng **Arm known API callsites**. Giới hạn tự Arm là 512 callsites.
+4. Chạy bằng F9. Khi dừng, xem dòng có `Source=debug`. Bấm F9 để tiếp tục.
+5. Chọn **Disarm capture / owned breakpoints** khi xong.
+
+Key/IV được đọc trước call. Random bytes, output handle và tag được đọc sau khi API return thành công. Plugin dùng memory của process đang debug và giữ riêng trạng thái theo thread/handle.
+
+`Ctrl+Alt+L` dùng khi process đang dừng tại call instruction hoặc entry của hàm đã có binding. Nếu dừng giữa hàm, registers/stack có thể đã thay đổi nên đọc arguments sẽ không đúng.
+
+Nếu attach sau khi setup key đã chạy, cần đặt breakpoint sớm hơn rồi chạy lại. Chỉ có opaque handle thường không đủ để lấy raw key.
+
+Plugin không tự Continue/Step. Disarm dọn các breakpoint do plugin tạo; breakpoint có sẵn của người dùng được giữ lại. Có thể chọn calling convention bằng **Choose debugger ABI**. Hiện có adapters cho Win64, SysV x64, x86 cdecl/stdcall/fastcall, AArch64 và ARM32; phần debug đã chạy thực tế trên Win64.
+
+### Các dạng nhận diện
+
+| Nhóm | Hỗ trợ |
+|---|---|
+| AES-128/192/256 | ECB, CBC, CTR, CFB, OFB, GCM qua API; AES instructions và S-box |
+| DES | ECB, CBC, CFB, OFB; API và constant tables |
+| RSA | API, PEM/DER PKCS#1/PKCS#8/SPKI, CNG/CryptoAPI key blobs; đọc n/e/d/p/q/CRT nếu có |
+| RC4 | API và pattern KSA/PRGA |
+| Salsa20 | API, ARX và constants |
+| ChaCha20 / XChaCha20 | API, nonce/counter layout; pattern ChaCha-family |
+| ChaCha20-Poly1305 / XChaCha20-Poly1305 | API có key, nonce, AAD và tag |
+| TEA / XTEA / XXTEA | Delta, shifts, masks, index và cách truy cập key |
+| Biến đổi byte | XOR, add, sub, rotate; một số pattern SSE/AVX |
+| RNG/KDF | Theo output của PBKDF2, RAND_bytes, getrandom, BCryptGenRandom |
+
+Các API được hỗ trợ gồm OpenSSL, mbedTLS, libsodium, Nettle, tiny-AES và Windows BCrypt/CNG/CryptoAPI. Xem từng prototype tại [API_COVERAGE.md](docs/API_COVERAGE.md).
 
 ### Export
 
-- **Export full report:** xuất JSON hoặc Markdown để xem đầy đủ findings/evidence/materials.
-- **Export selected Crypto draft:** tạo cấu hình nháp từ finding đang chọn để đối chiếu hoặc đưa sang module Crypto của CyberDesk.
+- **Export full report:** lưu toàn bộ kết quả ra JSON.
+- **Export selected Crypto draft:** xuất thông số của dòng đang chọn thành JSON để dùng với module Crypto của CyberDesk.
 
-Crypto draft cần review: input/output paths, header/trailer, padding, original size, counter layout/endian và các RSA settings chưa có evidence. Export không tự giải mã folder; plugin hoạt động độc lập khi không có CyberDesk.
+Crypto draft còn cần điền đường dẫn, padding, header/trailer và các thông số file chưa xác định. Kiểm tra lại counter layout/endian và RSA settings trước khi dùng để giải mã.
 
-### Bind hàm riêng / thêm API
+### Khai báo hàm riêng
 
-Với hàm tự implement đã hiểu prototype, đặt cursor trong function rồi chọn **Bind current function arguments**. Sửa form JSON để chỉ rõ số arguments và vai trò key/IV. Index bắt đầu từ **0**.
+Nếu đã biết prototype của hàm tự implement, đặt cursor trong hàm rồi chọn **Bind current function arguments**. Khai báo số arguments, argument chứa key/IV và độ dài. Index bắt đầu từ 0.
 
-Ví dụ khai báo cho prototype `void my_xtea(uint8_t *data, const uint8_t *key, const uint8_t *iv, size_t size)` khi đã xác nhận đây là XTEA-CBC:
+Ví dụ với hàm XTEA-CBC:
+
+```cpp
+void my_xtea(uint8_t *data, const uint8_t *key, const uint8_t *iv, size_t size);
+```
 
 ```json
 {
@@ -150,115 +145,119 @@ Ví dụ khai báo cho prototype `void my_xtea(uint8_t *data, const uint8_t *key
 }
 ```
 
-Rescan **caller** để lấy input static hoặc capture tại entry khi debug. Nếu hàm thực tế không dùng IV, bỏ field đó và khai báo đúng mode. Binding qua UI chỉ giữ trong phiên hiện tại.
+Quét lại caller để lấy tham số static, hoặc dừng ở entry để capture khi debug. Nếu hàm không dùng IV, bỏ field `iv` và sửa mode cho đúng.
 
-Muốn lưu lâu dài, dùng [custom-api.example](docs/custom-api.example) làm mẫu, đặt file `.json` vào `crypto_probe/rules/` rồi restart IDA. Các file được nạp theo thứ tự tên; rule sau có thể override API trùng tên. JSON là cấu hình dữ liệu, không chứa Python để thực thi.
+Binding trong UI chỉ giữ ở phiên hiện tại. Để dùng lại, lấy [custom-api.example](docs/custom-api.example) làm mẫu, lưu thành `.json` trong `crypto_probe/rules/` rồi restart IDA. Rule được nạp theo thứ tự tên file; file sau có thể ghi đè API trùng tên.
 
-### Giới hạn và xử lý lỗi
+### Khi kết quả thiếu hoặc sai
 
-- Import error: kiểm tra loader và package ở cạnh nhau, đúng thư mục plugins của IDA đang mở; xem traceback trong Output.
-- Không có key static: kiểm tra prototype/F5, length, branch và diagnostics; dùng debug capture trước bước setup nếu cần.
-- F5 mất producer/register data flow do optimization, indirect target chưa biết, packed code, obfuscation/custom VM hoặc control flow chưa hỗ trợ có thể để lại unknown.
-- Interpreter có budget: khoảng 12.000 bước/root, loop tối đa 1.024 lần, wrapper thông thường tối đa 3 tầng; getter return-value flow có giới hạn riêng tới 64 tầng và vẫn chịu budget/scope.
-- Data scan tối đa 128 MiB; capture buffer tối đa 64 KiB/field. Kết quả bị giới hạn/cancel là partial.
-- Không suy ra mode chỉ từ AES instruction; không mặc định ChaCha-family là ChaCha20 đầy đủ; không coi mọi byte loop là encryption.
-- Scan không tự rename/patch hoặc apply type. Hex-Rays có thể cập nhật biểu diễn/type inference khi decompile. Action **Append algorithm comment** là thao tác riêng để thêm comment.
-- Runtime hỗ trợ ASLR của module chính; code JIT, DLL mới hoặc child process cần scope/binding/debug context phù hợp.
+- **Import error:** kiểm tra file loader và folder package có nằm cạnh nhau không; xem traceback trong Output.
+- **Có algorithm nhưng thiếu key:** xem prototype trong F5, độ dài buffer và `diagnostics`. Thử capture ở bước setup key.
+- **Quét đệ quy thấy hàm nhưng vẫn thiếu tham số:** tìm được hàm và tính được dữ liệu truyền vào là hai bước riêng. Mã giả bị mất register data flow hoặc nhánh chưa biết có thể khiến key unresolved.
+- **Tìm thấy ChaCha/Salsa-family:** cần kiểm tra thêm số round và state layout để biết variant. AES instruction cũng chưa cho biết mode.
+- **RSA PEM:** public key chỉ có n/e; PEM không cho biết OAEP hash, MGF1 hash hay label của ciphertext.
+- **DES:** chưa tự nhận mode CTR của code tự viết; không hỗ trợ DES-GCM.
+
+Packed code, obfuscation, custom VM, JIT, DLL mới nạp và child process có thể cần xử lý thủ công. Các giới hạn hiện tại:
+
+| Phần | Giới hạn |
+|---|---|
+| Recursive scan | 2.048 hàm |
+| Partial interpreter | Khoảng 12.000 bước/root; loop tối đa 1.024 lần |
+| Wrapper thông thường | Tối đa 3 tầng |
+| Getter return-value flow | Tối đa 64 tầng, vẫn chịu giới hạn bước và phạm vi quét |
+| Data scan | 128 MiB |
+| Debug buffer | 64 KiB/field |
 
 ## Cấu trúc project
 
-### Công nghệ
-
-Plugin viết bằng **Python**, chạy trong IDAPython. UI dùng native IDA Choose/simplecustviewer/actions. Hex-Rays cung cấp ctree; phần core chuyển ctree thành IR Python để nhận diện và lần giá trị. Rule API dùng JSON. Nhánh debug dùng IDA debugger hooks và ABI adapters. Chi tiết thiết kế: [DESIGN.md](docs/DESIGN.md); nguồn tham khảo: [SOURCES.md](docs/SOURCES.md).
-
-### Sơ đồ thư mục
+Code viết bằng Python, dùng IDAPython để đọc database và debugger. Hex-Rays ctree được chuyển thành IR riêng trước khi phân tích. UI dùng native IDA `Choose`, `simplecustviewer` và actions; API rules nằm trong JSON.
 
 ```text
 CryptoProbe/
-├── README.md                     Hướng dẫn dùng và kiến trúc
-├── LICENSE                       BSD 3-Clause
-├── .gitignore                    Bỏ cache, IDB, outputs và private keys
-├── crypto_probe_plugin.py        Entry point để IDA load plugin
+├── crypto_probe_plugin.py   Loader của IDA
 ├── crypto_probe/
-│   ├── __init__.py               Phiên bản package
-│   ├── ui.py                     Controller, actions, bảng kết quả
-│   ├── ida_adapter.py            Đọc IDA / lift Hex-Rays ctree thành IR
-│   ├── callgraph.py              Dựng scope đệ quy
-│   ├── scanner.py                Điều phối static scan
-│   ├── ir.py                     Expr, Stmt, FunctionIR
-│   ├── semantics.py              Chuẩn hóa biểu thức và helper nhỏ
-│   ├── interpreter.py            Partial evaluation, arguments/return flow
-│   ├── memory.py                 Known/unknown bytes, pointers và objects
-│   ├── forwarding.py             Truyền key-role qua thin wrappers
-│   ├── literals.py               Đọc bytes từ C string literals
-│   ├── simd.py                   Concrete SIMD operations
-│   ├── vector_patterns.py        Def/use, broadcast và vector rotate patterns
-│   ├── apis.py                   Load/validate rules, cipher descriptors
-│   ├── rules/builtin.json        API profiles có sẵn
-│   ├── structural.py             Nhận diện cấu trúc crypto
-│   ├── signatures.py             Constant table fingerprints
-│   ├── rsa.py                    PEM/DER/RSA key blob parsing
-│   ├── materials.py              Key/IV/nonce roles, contexts và API decoding
-│   ├── abi.py                    Registers/stack arguments, return contracts
-│   ├── debugger.py               DBG_Hooks và breakpoint ownership
-│   ├── runtime.py                Trạng thái trước call / sau return
-│   ├── model.py                  Finding, Evidence, Material, ScanResult
-│   ├── exporter.py               JSON/Markdown/Crypto draft
-│   └── LICENSE                   License của runtime package
-└── docs/
-    ├── API_COVERAGE.md           Chi tiết API/prototype/roles
-    ├── DESIGN.md                 Thiết kế và nguyên tắc giữ evidence
-    ├── SOURCES.md                Nguồn tài liệu/repository tham khảo
-    └── custom-api.example        Mẫu rule API riêng
+│   ├── __init__.py          Version
+│   ├── ui.py                Menu, hotkeys, bảng kết quả
+│   ├── ida_adapter.py       Đọc IDA, chuyển ctree thành IR
+│   ├── callgraph.py         Duyệt các hàm được gọi
+│   ├── scanner.py           Điều phối static scan
+│   ├── ir.py                Expr, Stmt, FunctionIR
+│   ├── semantics.py         Chuẩn hóa biểu thức, mở rộng helper nhỏ
+│   ├── interpreter.py       Tính giá trị, lần arguments và return
+│   ├── memory.py            Bytes, pointers, stack/heap objects
+│   ├── forwarding.py        Lần tham số key qua wrapper mỏng
+│   ├── literals.py          Đọc C string literals
+│   ├── simd.py              Các phép SIMD đã hỗ trợ
+│   ├── vector_patterns.py   Pattern broadcast và rotate vector
+│   ├── apis.py              Đọc rule, nhận cipher descriptor
+│   ├── rules/builtin.json   API profiles
+│   ├── structural.py        Pattern cấu trúc code crypto
+│   ├── signatures.py        Constant tables
+│   ├── rsa.py               Đọc PEM/DER/key blobs
+│   ├── materials.py         Đọc key/IV/nonce, quản lý context
+│   ├── abi.py               Arguments trong registers/stack
+│   ├── debugger.py          Hooks và breakpoints
+│   ├── runtime.py           Xử lý trước call / sau return
+│   ├── model.py             Finding, Evidence, Material, ScanResult
+│   ├── exporter.py          JSON, Markdown, Crypto draft
+│   └── LICENSE
+├── docs/
+│   ├── API_COVERAGE.md
+│   ├── DESIGN.md
+│   ├── SOURCES.md
+│   └── custom-api.example
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
-### Các thành phần nối với nhau như thế nào?
+### Luồng xử lý
 
 ```text
-IDA load crypto_probe_plugin.py
-             │
-             ▼
-       ui.Controller ────────────── menu / J / K / R / L
-             │
-             ├── Static
-             │    callgraph + ida_adapter
-             │              │
-             │              ▼
-             │         FunctionIR
-             │              │
-             │              ▼
-             │           scanner
-             │           ├── structural / signatures / rsa
-             │           └── interpreter + memory
-             │                         │
-             │                         ▼
-             │               materials + API rules
-             │
-             └── Debug
-                  scanner.bindings → debugger → ABI → runtime
-                                                     │
-                                                     ▼
-                                            materials + API rules
-
-Static và Debug → model.ScanResult → UI / JSON / exporter
+crypto_probe_plugin.py → ui.Controller
+                              │
+              ┌───────────────┴────────────────┐
+              ▼                                ▼
+         Static scan                       Debug capture
+   callgraph + ida_adapter              bindings từ scanner
+              │                                │
+              ▼                                ▼
+         FunctionIR                     debugger + abi
+              │                                │
+              ▼                                ▼
+           scanner                           runtime
+      ┌───────┴────────┐                       │
+      ▼                ▼                       │
+  structural       interpreter                 │
+  signatures        + memory                   │
+  rsa                  │                       │
+      │                └───────────┬───────────┘
+      │                            ▼
+      │                   materials + API rules
+      │                            │
+      └─────────────┬───────────────┘
+                    ▼
+                ScanResult
+                    │
+                    ▼
+             UI / JSON / exporter
 ```
 
-`scanner.py` tạo bindings tại các callsite để debugger biết prototype/roles cần đọc. Hai nhánh dùng chung `materials.py` và API catalog, nhưng nhánh debug đọc bytes mới từ process. Context/handle nối bước setup key/IV với các lần sử dụng sau đó, giữ provenance và setup addresses.
+`scanner.py` tìm pattern và API callsites, sau đó tạo bindings để debugger biết cần đọc arguments nào. `interpreter.py` lần giá trị static qua phép toán, memory và lời gọi hàm. `materials.py` nối bước setup key/IV với các lần encrypt/decrypt dùng cùng context hoặc handle.
 
-`model.py` là contract chung: `Finding` giữ algorithm/mode/source/confidence, `Evidence` giữ lý do cùng địa chỉ, `Material` giữ bytes/scalar và trạng thái. UI/exporter đọc model đó; đổi cách trình bày không cần thay detector. Chuyển address sang hex chỉ diễn ra lúc trình bày/export.
+Kết quả dùng chung model trong `model.py`: `Finding` chứa thuật toán và vị trí, `Evidence` chứa dấu hiệu nhận diện, `Material` chứa key/IV và trạng thái đọc. UI và exporter lấy dữ liệu từ model này.
 
-### Điểm mở rộng
+### Thêm tính năng
 
-| Muốn thêm gì? | Nơi thực hiện |
+| Thay đổi | File cần xem |
 |---|---|
-| API nhận key/IV theo prototype đã biết | JSON trong `crypto_probe/rules/` |
-| Stateful API có kiểu handle/setup mới | Rules và decoder trong `materials.py`/`runtime.py` |
-| Pattern thuật toán tự implement | `structural.py`, có thể thêm normalization trong `semantics.py` |
-| Constant table mới | `signatures.py` |
-| Ctree/helper/SIMD operation chưa hỗ trợ | `ida_adapter.py`, `interpreter.py`, `simd.py` |
-| Calling convention mới | `abi.py` |
-| Kiểu output mới | `exporter.py`, dùng model hiện có |
+| Thêm API theo prototype | `rules/*.json` |
+| Thêm kiểu setup/context/handle | `materials.py`, `runtime.py` |
+| Nhận thuật toán tự implement | `structural.py`, `semantics.py` |
+| Thêm constant table | `signatures.py` |
+| Hỗ trợ thêm ctree/helper/SIMD | `ida_adapter.py`, `interpreter.py`, `simd.py` |
+| Thêm calling convention | `abi.py` |
+| Đổi định dạng export | `exporter.py` |
 
-Khi mở rộng, giữ rõ evidence quan sát được và giả thuyết; raw key cần đủ bytes/length. Không tăng confidence chỉ vì gặp một hằng số hay tên function có vẻ giống crypto.
-
-Project có thể dùng làm Git repository tại thư mục này; entry point và package đã nằm ở root để copy vào IDA trực tiếp. Giữ các license khi phân phối.
+Chi tiết: [thiết kế](docs/DESIGN.md), [API profiles](docs/API_COVERAGE.md), [nguồn tham khảo](docs/SOURCES.md).
