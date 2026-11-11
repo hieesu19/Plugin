@@ -1,0 +1,46 @@
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local work, generated results, and archives
+temp/
+tmp/
+work/
+tests/
+build/
+dist/
+outputs/
+reports/
+*.log
+*.zip
+*.7z
+
+# IDA databases and local debugger artifacts
+*.idb
+*.i64
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+*.dmp
+
+# Private keys and local configuration
+*.pem
+*.key
+*.p12
+*.pfx
+.env
+.env.*
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,3071 @@
+{
+  "schema": 1,
+  "apis": [
+    {
+      "names": [
+        "EVP_EncryptInit"
+      ],
+      "argc": 4,
+      "event": "evp_init",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 2,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length_from": "iv_length"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_arg": 1,
+      "direction": "encrypt",
+      "enc_arg": null,
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_EncryptInit_ex"
+      ],
+      "argc": 5,
+      "event": "evp_init",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 3,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length_from": "iv_length"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_arg": 1,
+      "direction": "encrypt",
+      "enc_arg": null,
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_EncryptInit_ex2"
+      ],
+      "argc": 5,
+      "event": "evp_init",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 2,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length_from": "iv_length"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_arg": 1,
+      "direction": "encrypt",
+      "enc_arg": null,
+      "notes": [
+        "OSSL_PARAM may override defaults; unparsed params remain explicitly unresolved."
+      ],
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_EncryptUpdate"
+      ],
+      "argc": 5,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "input",
+          "arg": 3,
+          "kind": "bytes",
+          "length_arg": 4
+        }
+      ],
+      "context_arg": 0,
+      "direction": "encrypt",
+      "success": "openssl",
+      "arg_sizes": {
+        "4": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_EncryptFinal",
+        "EVP_EncryptFinal_ex"
+      ],
+      "argc": 3,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [],
+      "context_arg": 0,
+      "direction": "encrypt",
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_DecryptInit"
+      ],
+      "argc": 4,
+      "event": "evp_init",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 2,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length_from": "iv_length"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_arg": 1,
+      "direction": "decrypt",
+      "enc_arg": null,
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_DecryptInit_ex"
+      ],
+      "argc": 5,
+      "event": "evp_init",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 3,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length_from": "iv_length"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_arg": 1,
+      "direction": "decrypt",
+      "enc_arg": null,
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_DecryptInit_ex2"
+      ],
+      "argc": 5,
+      "event": "evp_init",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 2,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length_from": "iv_length"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_arg": 1,
+      "direction": "decrypt",
+      "enc_arg": null,
+      "notes": [
+        "OSSL_PARAM may override defaults; unparsed params remain explicitly unresolved."
+      ],
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_DecryptUpdate"
+      ],
+      "argc": 5,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "input",
+          "arg": 3,
+          "kind": "bytes",
+          "length_arg": 4
+        }
+      ],
+      "context_arg": 0,
+      "direction": "decrypt",
+      "success": "openssl",
+      "arg_sizes": {
+        "4": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_DecryptFinal",
+        "EVP_DecryptFinal_ex"
+      ],
+      "argc": 3,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [],
+      "context_arg": 0,
+      "direction": "decrypt",
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_CipherInit"
+      ],
+      "argc": 5,
+      "event": "evp_init",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 2,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length_from": "iv_length"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_arg": 1,
+      "direction": "argument",
+      "enc_arg": 4,
+      "success": "openssl",
+      "arg_sizes": {
+        "4": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_CipherInit_ex"
+      ],
+      "argc": 6,
+      "event": "evp_init",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 3,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length_from": "iv_length"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_arg": 1,
+      "direction": "argument",
+      "enc_arg": 5,
+      "success": "openssl",
+      "arg_sizes": {
+        "5": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_CipherInit_ex2"
+      ],
+      "argc": 6,
+      "event": "evp_init",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 2,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length_from": "iv_length"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_arg": 1,
+      "direction": "argument",
+      "enc_arg": 4,
+      "notes": [
+        "OSSL_PARAM may override defaults; unparsed params remain explicitly unresolved."
+      ],
+      "success": "openssl",
+      "arg_sizes": {
+        "4": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_CipherUpdate"
+      ],
+      "argc": 5,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "input",
+          "arg": 3,
+          "kind": "bytes",
+          "length_arg": 4
+        }
+      ],
+      "context_arg": 0,
+      "direction": "argument",
+      "success": "openssl",
+      "arg_sizes": {
+        "4": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_CipherFinal",
+        "EVP_CipherFinal_ex"
+      ],
+      "argc": 3,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [],
+      "context_arg": 0,
+      "direction": "argument",
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_CIPHER_CTX_ctrl"
+      ],
+      "argc": 4,
+      "event": "evp_ctrl",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "control",
+          "arg": 1,
+          "kind": "scalar"
+        },
+        {
+          "role": "control_value",
+          "arg": 2,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "success": "openssl",
+      "arg_sizes": {
+        "1": 4,
+        "2": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_CIPHER_CTX_set_padding"
+      ],
+      "argc": 2,
+      "event": "set_padding",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "padding_enabled",
+          "arg": 1,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "success": "openssl",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_CIPHER_CTX_set_key_length"
+      ],
+      "argc": 2,
+      "event": "set_key_length",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key_length",
+          "arg": 1,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "success": "openssl",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_CIPHER_fetch"
+      ],
+      "argc": 3,
+      "event": "cipher_fetch",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "cipher_name",
+          "arg": 1,
+          "kind": "cstring"
+        }
+      ],
+      "arg_sizes": {},
+      "writes": [],
+      "success": "pointer"
+    },
+    {
+      "names": [
+        "EVP_get_cipherbyname"
+      ],
+      "argc": 1,
+      "event": "cipher_fetch",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "cipher_name",
+          "arg": 0,
+          "kind": "cstring"
+        }
+      ],
+      "arg_sizes": {},
+      "writes": [],
+      "success": "pointer"
+    },
+    {
+      "names": [
+        "AES_set_encrypt_key",
+        "AES_set_decrypt_key"
+      ],
+      "argc": 3,
+      "event": "setkey",
+      "algorithm": "AES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 0,
+          "kind": "bytes",
+          "length_arg": 1,
+          "length_divisor": 8
+        },
+        {
+          "role": "key_bits",
+          "arg": 1,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 2,
+      "key_bits_arg": 1,
+      "success": "zero",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "AES_cbc_encrypt"
+      ],
+      "argc": 6,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CBC",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 16
+        },
+        {
+          "role": "input",
+          "arg": 0,
+          "kind": "bytes",
+          "length_arg": 2
+        }
+      ],
+      "context_arg": 3,
+      "enc_arg": 5,
+      "arg_sizes": {
+        "5": 4
+      },
+      "writes": [
+        {
+          "arg": 4,
+          "length": 16
+        },
+        {
+          "arg": 1,
+          "length_arg": 2
+        }
+      ],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_ecb_encrypt"
+      ],
+      "argc": 4,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "ECB",
+      "fields": [
+        {
+          "role": "input",
+          "arg": 0,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 2,
+      "enc_arg": 3,
+      "arg_sizes": {
+        "3": 4
+      },
+      "writes": [
+        {
+          "arg": 1,
+          "length": 16
+        }
+      ],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_cfb128_encrypt"
+      ],
+      "argc": 7,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 3,
+      "enc_arg": 6,
+      "cfb_segment_bits": 128,
+      "arg_sizes": {
+        "6": 4
+      },
+      "writes": [
+        {
+          "arg": 4,
+          "length": 16
+        },
+        {
+          "arg": 1,
+          "length_arg": 2
+        }
+      ],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_cfb8_encrypt"
+      ],
+      "argc": 7,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 3,
+      "enc_arg": 6,
+      "cfb_segment_bits": 8,
+      "arg_sizes": {
+        "6": 4
+      },
+      "writes": [
+        {
+          "arg": 4,
+          "length": 16
+        },
+        {
+          "arg": 1,
+          "length_arg": 2
+        }
+      ],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_ofb128_encrypt"
+      ],
+      "argc": 6,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "OFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 3,
+      "arg_sizes": {},
+      "writes": [
+        {
+          "arg": 4,
+          "length": 16
+        },
+        {
+          "arg": 1,
+          "length_arg": 2
+        }
+      ],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_ctr128_encrypt"
+      ],
+      "argc": 7,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CTR",
+      "fields": [
+        {
+          "role": "counter_block",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 3,
+      "arg_sizes": {},
+      "writes": [
+        {
+          "arg": 4,
+          "length": 16
+        },
+        {
+          "arg": 5,
+          "length": 16
+        },
+        {
+          "arg": 1,
+          "length_arg": 2
+        }
+      ],
+      "success": "void"
+    },
+    {
+      "names": [
+        "CRYPTO_ctr128_encrypt"
+      ],
+      "argc": 8,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "CTR",
+      "fields": [
+        {
+          "role": "counter_block",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 3,
+      "arg_sizes": {},
+      "writes": [
+        {
+          "arg": 4,
+          "length": 16
+        },
+        {
+          "arg": 5,
+          "length": 16
+        },
+        {
+          "arg": 1,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "RC4_set_key"
+      ],
+      "argc": 3,
+      "event": "setkey",
+      "algorithm": "RC4",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 2,
+          "kind": "bytes",
+          "length_arg": 1
+        }
+      ],
+      "context_arg": 0,
+      "success": "void",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "RC4"
+      ],
+      "argc": 4,
+      "event": "context_use",
+      "algorithm": "RC4",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "input",
+          "arg": 2,
+          "kind": "bytes",
+          "length_arg": 1
+        }
+      ],
+      "context_arg": 0,
+      "success": "void",
+      "arg_sizes": {},
+      "writes": [
+        {
+          "arg": 3,
+          "length_arg": 1
+        }
+      ]
+    },
+    {
+      "names": [
+        "DES_set_key",
+        "DES_set_key_checked"
+      ],
+      "argc": 2,
+      "event": "setkey",
+      "algorithm": "DES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 0,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "context_arg": 1,
+      "success": "zero",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "DES_set_key_unchecked"
+      ],
+      "argc": 2,
+      "event": "setkey",
+      "algorithm": "DES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 0,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "context_arg": 1,
+      "success": "void",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "DES_ecb_encrypt"
+      ],
+      "argc": 4,
+      "event": "context_use",
+      "algorithm": "DES",
+      "mode": "ECB",
+      "fields": [
+        {
+          "role": "input",
+          "arg": 0,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "context_arg": 2,
+      "enc_arg": 3,
+      "arg_sizes": {
+        "3": 4
+      },
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "DES_cbc_encrypt",
+        "DES_ncbc_encrypt"
+      ],
+      "argc": 6,
+      "event": "context_use",
+      "algorithm": "DES",
+      "mode": "CBC",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "context_arg": 3,
+      "enc_arg": 5,
+      "arg_sizes": {
+        "5": 4,
+        "2": "c_long"
+      },
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "DES_cfb64_encrypt"
+      ],
+      "argc": 7,
+      "event": "context_use",
+      "algorithm": "DES",
+      "mode": "CFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "context_arg": 3,
+      "enc_arg": 6,
+      "cfb_segment_bits": 64,
+      "arg_sizes": {
+        "6": 4,
+        "2": "c_long"
+      },
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "DES_ofb64_encrypt"
+      ],
+      "argc": 6,
+      "event": "context_use",
+      "algorithm": "DES",
+      "mode": "OFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "context_arg": 3,
+      "arg_sizes": {
+        "2": "c_long"
+      },
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "DES_cfb_encrypt"
+      ],
+      "argc": 7,
+      "event": "context_use",
+      "algorithm": "DES",
+      "mode": "CFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 5,
+          "kind": "bytes",
+          "length": 8
+        },
+        {
+          "role": "cfb_segment_bits",
+          "arg": 2,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 4,
+      "enc_arg": 6,
+      "arg_sizes": {
+        "6": 4,
+        "2": 4,
+        "3": "c_long"
+      },
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "DES_ofb_encrypt"
+      ],
+      "argc": 6,
+      "event": "context_use",
+      "algorithm": "DES",
+      "mode": "OFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 5,
+          "kind": "bytes",
+          "length": 8
+        },
+        {
+          "role": "segment_bits",
+          "arg": 2,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 4,
+      "arg_sizes": {
+        "2": 4,
+        "3": "c_long"
+      },
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "mbedtls_aes_setkey_enc"
+      ],
+      "argc": 3,
+      "event": "setkey",
+      "algorithm": "AES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length_arg": 2,
+          "length_divisor": 8
+        },
+        {
+          "role": "key_bits",
+          "arg": 2,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "key_bits_arg": 2,
+      "success": "mbedtls",
+      "arg_sizes": {
+        "2": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_aes_setkey_dec"
+      ],
+      "argc": 3,
+      "event": "setkey",
+      "algorithm": "AES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length_arg": 2,
+          "length_divisor": 8
+        },
+        {
+          "role": "key_bits",
+          "arg": 2,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "key_bits_arg": 2,
+      "success": "mbedtls",
+      "arg_sizes": {
+        "2": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_aes_crypt_ecb"
+      ],
+      "argc": 4,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "ECB",
+      "fields": [
+        {
+          "role": "input",
+          "arg": 2,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 0,
+      "enc_arg": 1,
+      "success": "mbedtls",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": [
+        {
+          "arg": 3,
+          "length": 16
+        }
+      ]
+    },
+    {
+      "names": [
+        "mbedtls_aes_crypt_cbc"
+      ],
+      "argc": 6,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CBC",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 0,
+      "enc_arg": 1,
+      "success": "mbedtls",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": [
+        {
+          "arg": 3,
+          "length": 16
+        },
+        {
+          "arg": 5,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "mbedtls_aes_crypt_ctr"
+      ],
+      "argc": 7,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CTR",
+      "fields": [
+        {
+          "role": "counter_block",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 16
+        },
+        {
+          "role": "stream_block",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 0,
+      "success": "mbedtls",
+      "arg_sizes": {},
+      "writes": [
+        {
+          "arg": 2,
+          "length": 8
+        },
+        {
+          "arg": 3,
+          "length": 16
+        },
+        {
+          "arg": 4,
+          "length": 16
+        },
+        {
+          "arg": 6,
+          "length_arg": 1
+        }
+      ]
+    },
+    {
+      "names": [
+        "mbedtls_aes_crypt_cfb128"
+      ],
+      "argc": 7,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 0,
+      "enc_arg": 1,
+      "cfb_segment_bits": 128,
+      "success": "mbedtls",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": [
+        {
+          "arg": 2,
+          "length": 8
+        },
+        {
+          "arg": 4,
+          "length": 16
+        },
+        {
+          "arg": 6,
+          "length_arg": 3
+        }
+      ]
+    },
+    {
+      "names": [
+        "mbedtls_aes_crypt_cfb8"
+      ],
+      "argc": 6,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 0,
+      "enc_arg": 1,
+      "cfb_segment_bits": 8,
+      "success": "mbedtls",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": [
+        {
+          "arg": 3,
+          "length": 16
+        },
+        {
+          "arg": 5,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "mbedtls_aes_crypt_ofb"
+      ],
+      "argc": 6,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "OFB",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 0,
+      "success": "mbedtls",
+      "arg_sizes": {},
+      "writes": [
+        {
+          "arg": 2,
+          "length": 8
+        },
+        {
+          "arg": 3,
+          "length": 16
+        },
+        {
+          "arg": 5,
+          "length_arg": 1
+        }
+      ]
+    },
+    {
+      "names": [
+        "mbedtls_des_setkey_enc",
+        "mbedtls_des_setkey_dec"
+      ],
+      "argc": 2,
+      "event": "setkey",
+      "algorithm": "DES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "context_arg": 0,
+      "success": "mbedtls",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_des_crypt_ecb"
+      ],
+      "argc": 3,
+      "event": "context_use",
+      "algorithm": "DES",
+      "mode": "ECB",
+      "fields": [],
+      "context_arg": 0,
+      "success": "mbedtls",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_des_crypt_cbc"
+      ],
+      "argc": 6,
+      "event": "context_use",
+      "algorithm": "DES",
+      "mode": "CBC",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "context_arg": 0,
+      "enc_arg": 1,
+      "success": "mbedtls",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": [
+        {
+          "arg": 3,
+          "length": 8
+        },
+        {
+          "arg": 5,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "mbedtls_arc4_setup"
+      ],
+      "argc": 3,
+      "event": "setkey",
+      "algorithm": "RC4",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length_arg": 2
+        }
+      ],
+      "context_arg": 0,
+      "success": "void",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_arc4_crypt"
+      ],
+      "argc": 4,
+      "event": "context_use",
+      "algorithm": "RC4",
+      "mode": "STREAM",
+      "fields": [],
+      "context_arg": 0,
+      "success": "mbedtls",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_chacha20_setkey"
+      ],
+      "argc": 2,
+      "event": "setkey",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length": 32
+        }
+      ],
+      "context_arg": 0,
+      "success": "mbedtls",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_chacha20_starts"
+      ],
+      "argc": 3,
+      "event": "context_use",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "nonce",
+          "arg": 1,
+          "kind": "bytes",
+          "length": 12
+        },
+        {
+          "role": "counter",
+          "arg": 2,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "success": "mbedtls",
+      "arg_sizes": {
+        "2": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_chacha20_update"
+      ],
+      "argc": 4,
+      "event": "context_use",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [],
+      "context_arg": 0,
+      "success": "mbedtls",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_chacha20_crypt"
+      ],
+      "argc": 6,
+      "event": "direct",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 0,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 1,
+          "kind": "bytes",
+          "length": 12
+        },
+        {
+          "role": "counter",
+          "arg": 2,
+          "kind": "scalar"
+        },
+        {
+          "role": "input",
+          "arg": 4,
+          "kind": "bytes",
+          "length_arg": 3
+        }
+      ],
+      "success": "mbedtls",
+      "arg_sizes": {
+        "2": 4
+      },
+      "writes": [
+        {
+          "arg": 5,
+          "length_arg": 3
+        }
+      ]
+    },
+    {
+      "names": [
+        "mbedtls_gcm_setkey"
+      ],
+      "argc": 4,
+      "event": "setkey",
+      "algorithm": "unknown",
+      "mode": "GCM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 2,
+          "kind": "bytes",
+          "length_arg": 3,
+          "length_divisor": 8
+        },
+        {
+          "role": "cipher_id",
+          "arg": 1,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "cipher_id_arg": 1,
+      "key_bits_arg": 3,
+      "success": "mbedtls",
+      "arg_sizes": {
+        "1": 4,
+        "3": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "mbedtls_gcm_crypt_and_tag"
+      ],
+      "argc": 11,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "GCM",
+      "fields": [
+        {
+          "role": "nonce",
+          "arg": 3,
+          "kind": "bytes",
+          "length_arg": 4
+        },
+        {
+          "role": "aad",
+          "arg": 5,
+          "kind": "bytes",
+          "length_arg": 6
+        },
+        {
+          "role": "tag",
+          "arg": 10,
+          "kind": "bytes",
+          "length_arg": 9
+        }
+      ],
+      "context_arg": 0,
+      "enc_arg": 1,
+      "output_fields": [
+        "tag"
+      ],
+      "success": "mbedtls",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": [
+        {
+          "arg": 8,
+          "length_arg": 2
+        },
+        {
+          "arg": 10,
+          "length_arg": 9
+        }
+      ]
+    },
+    {
+      "names": [
+        "mbedtls_gcm_auth_decrypt"
+      ],
+      "argc": 10,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "GCM",
+      "fields": [
+        {
+          "role": "nonce",
+          "arg": 2,
+          "kind": "bytes",
+          "length_arg": 3
+        },
+        {
+          "role": "aad",
+          "arg": 4,
+          "kind": "bytes",
+          "length_arg": 5
+        },
+        {
+          "role": "tag",
+          "arg": 6,
+          "kind": "bytes",
+          "length_arg": 7
+        }
+      ],
+      "context_arg": 0,
+      "direction": "decrypt",
+      "success": "mbedtls",
+      "arg_sizes": {},
+      "writes": [
+        {
+          "arg": 9,
+          "length_arg": 1
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_salsa20_xor"
+      ],
+      "argc": 5,
+      "event": "direct",
+      "algorithm": "Salsa20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "counter_default": 0,
+      "success": "zero",
+      "arg_sizes": {
+        "2": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_salsa20_xor_ic"
+      ],
+      "argc": 6,
+      "event": "direct",
+      "algorithm": "Salsa20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 5,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 8
+        },
+        {
+          "role": "counter",
+          "arg": 4,
+          "kind": "scalar"
+        }
+      ],
+      "success": "zero",
+      "arg_sizes": {
+        "2": 8,
+        "4": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_salsa20"
+      ],
+      "argc": 4,
+      "event": "direct",
+      "algorithm": "Salsa20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 2,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "counter_default": 0,
+      "success": "zero",
+      "arg_sizes": {
+        "1": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 1
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_chacha20_xor"
+      ],
+      "argc": 5,
+      "event": "direct",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "counter_default": 0,
+      "success": "zero",
+      "arg_sizes": {
+        "2": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_chacha20_xor_ic"
+      ],
+      "argc": 6,
+      "event": "direct",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 5,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 8
+        },
+        {
+          "role": "counter",
+          "arg": 4,
+          "kind": "scalar"
+        }
+      ],
+      "success": "zero",
+      "arg_sizes": {
+        "2": 8,
+        "4": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_chacha20"
+      ],
+      "argc": 4,
+      "event": "direct",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 2,
+          "kind": "bytes",
+          "length": 8
+        }
+      ],
+      "counter_default": 0,
+      "success": "zero",
+      "arg_sizes": {
+        "1": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 1
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_chacha20_ietf_xor"
+      ],
+      "argc": 5,
+      "event": "direct",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 12
+        }
+      ],
+      "counter_default": 0,
+      "success": "zero",
+      "arg_sizes": {
+        "2": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_chacha20_ietf_xor_ic"
+      ],
+      "argc": 6,
+      "event": "direct",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 5,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 12
+        },
+        {
+          "role": "counter",
+          "arg": 4,
+          "kind": "scalar"
+        }
+      ],
+      "success": "zero",
+      "arg_sizes": {
+        "2": 8,
+        "4": 4
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_chacha20_ietf"
+      ],
+      "argc": 4,
+      "event": "direct",
+      "algorithm": "ChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 2,
+          "kind": "bytes",
+          "length": 12
+        }
+      ],
+      "counter_default": 0,
+      "success": "zero",
+      "arg_sizes": {
+        "1": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 1
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_xchacha20_xor"
+      ],
+      "argc": 5,
+      "event": "direct",
+      "algorithm": "XChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 4,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 24
+        }
+      ],
+      "counter_default": 0,
+      "success": "zero",
+      "arg_sizes": {
+        "2": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_xchacha20_xor_ic"
+      ],
+      "argc": 6,
+      "event": "direct",
+      "algorithm": "XChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 5,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 24
+        },
+        {
+          "role": "counter",
+          "arg": 4,
+          "kind": "scalar"
+        }
+      ],
+      "success": "zero",
+      "arg_sizes": {
+        "2": 8,
+        "4": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 2
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_stream_xchacha20"
+      ],
+      "argc": 4,
+      "event": "direct",
+      "algorithm": "XChaCha20",
+      "mode": "STREAM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 3,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 2,
+          "kind": "bytes",
+          "length": 24
+        }
+      ],
+      "counter_default": 0,
+      "success": "zero",
+      "arg_sizes": {
+        "1": 8
+      },
+      "writes": [
+        {
+          "arg": 0,
+          "length_arg": 1
+        }
+      ]
+    },
+    {
+      "names": [
+        "crypto_aead_chacha20poly1305_ietf_encrypt"
+      ],
+      "argc": 9,
+      "event": "direct",
+      "algorithm": "ChaCha20-Poly1305",
+      "mode": "AEAD",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 8,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 7,
+          "kind": "bytes",
+          "length": 12
+        },
+        {
+          "role": "aad",
+          "arg": 4,
+          "kind": "bytes",
+          "length_arg": 5
+        }
+      ],
+      "direction": "encrypt",
+      "tag_length": 16,
+      "success": "zero",
+      "arg_sizes": {
+        "3": 8,
+        "5": 8
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "crypto_aead_chacha20poly1305_ietf_decrypt"
+      ],
+      "argc": 9,
+      "event": "direct",
+      "algorithm": "ChaCha20-Poly1305",
+      "mode": "AEAD",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 8,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 7,
+          "kind": "bytes",
+          "length": 12
+        },
+        {
+          "role": "aad",
+          "arg": 5,
+          "kind": "bytes",
+          "length_arg": 6
+        }
+      ],
+      "direction": "decrypt",
+      "tag_length": 16,
+      "success": "zero",
+      "arg_sizes": {
+        "4": 8,
+        "6": 8
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "crypto_aead_xchacha20poly1305_ietf_encrypt"
+      ],
+      "argc": 9,
+      "event": "direct",
+      "algorithm": "XChaCha20-Poly1305",
+      "mode": "AEAD",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 8,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 7,
+          "kind": "bytes",
+          "length": 24
+        },
+        {
+          "role": "aad",
+          "arg": 4,
+          "kind": "bytes",
+          "length_arg": 5
+        }
+      ],
+      "direction": "encrypt",
+      "tag_length": 16,
+      "success": "zero",
+      "arg_sizes": {
+        "3": 8,
+        "5": 8
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "crypto_aead_xchacha20poly1305_ietf_decrypt"
+      ],
+      "argc": 9,
+      "event": "direct",
+      "algorithm": "XChaCha20-Poly1305",
+      "mode": "AEAD",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 8,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 7,
+          "kind": "bytes",
+          "length": 24
+        },
+        {
+          "role": "aad",
+          "arg": 5,
+          "kind": "bytes",
+          "length_arg": 6
+        }
+      ],
+      "direction": "decrypt",
+      "tag_length": 16,
+      "success": "zero",
+      "arg_sizes": {
+        "4": 8,
+        "6": 8
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "crypto_aead_aes256gcm_encrypt"
+      ],
+      "argc": 9,
+      "event": "direct",
+      "algorithm": "AES",
+      "mode": "GCM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 8,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 7,
+          "kind": "bytes",
+          "length": 12
+        },
+        {
+          "role": "aad",
+          "arg": 4,
+          "kind": "bytes",
+          "length_arg": 5
+        }
+      ],
+      "direction": "encrypt",
+      "tag_length": 16,
+      "success": "zero",
+      "arg_sizes": {
+        "3": 8,
+        "5": 8
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "crypto_aead_aes256gcm_decrypt"
+      ],
+      "argc": 9,
+      "event": "direct",
+      "algorithm": "AES",
+      "mode": "GCM",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 8,
+          "kind": "bytes",
+          "length": 32
+        },
+        {
+          "role": "nonce",
+          "arg": 7,
+          "kind": "bytes",
+          "length": 12
+        },
+        {
+          "role": "aad",
+          "arg": 5,
+          "kind": "bytes",
+          "length_arg": 6
+        }
+      ],
+      "direction": "decrypt",
+      "tag_length": 16,
+      "success": "zero",
+      "arg_sizes": {
+        "4": 8,
+        "6": 8
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "nettle_aes128_set_encrypt_key",
+        "nettle_aes128_set_decrypt_key"
+      ],
+      "argc": 2,
+      "event": "setkey",
+      "algorithm": "AES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 0,
+      "arg_sizes": {},
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "nettle_aes192_set_encrypt_key",
+        "nettle_aes192_set_decrypt_key"
+      ],
+      "argc": 2,
+      "event": "setkey",
+      "algorithm": "AES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length": 24
+        }
+      ],
+      "context_arg": 0,
+      "arg_sizes": {},
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "nettle_aes256_set_encrypt_key",
+        "nettle_aes256_set_decrypt_key"
+      ],
+      "argc": 2,
+      "event": "setkey",
+      "algorithm": "AES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length": 32
+        }
+      ],
+      "context_arg": 0,
+      "arg_sizes": {},
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_init_ctx"
+      ],
+      "argc": 2,
+      "event": "setkey",
+      "algorithm": "AES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length_from": "key_length"
+        }
+      ],
+      "context_arg": 0,
+      "notes": [
+        "tiny-AES compile-time key size is not assumed; set an explicit custom binding if unresolved."
+      ],
+      "arg_sizes": {},
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_init_ctx_iv"
+      ],
+      "argc": 3,
+      "event": "setkey",
+      "algorithm": "AES",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 1,
+          "kind": "bytes",
+          "length_from": "key_length"
+        },
+        {
+          "role": "iv",
+          "arg": 2,
+          "kind": "bytes",
+          "length": 16
+        }
+      ],
+      "context_arg": 0,
+      "arg_sizes": {},
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_CBC_encrypt_buffer",
+        "AES_CBC_decrypt_buffer"
+      ],
+      "argc": 3,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CBC",
+      "fields": [],
+      "context_arg": 0,
+      "arg_sizes": {},
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_ECB_encrypt",
+        "AES_ECB_decrypt"
+      ],
+      "argc": 2,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "ECB",
+      "fields": [],
+      "context_arg": 0,
+      "arg_sizes": {},
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "AES_CTR_xcrypt_buffer"
+      ],
+      "argc": 3,
+      "event": "context_use",
+      "algorithm": "AES",
+      "mode": "CTR",
+      "fields": [],
+      "context_arg": 0,
+      "arg_sizes": {},
+      "writes": [],
+      "success": "void"
+    },
+    {
+      "names": [
+        "RSA_public_encrypt",
+        "RSA_private_encrypt",
+        "RSA_public_decrypt",
+        "RSA_private_decrypt"
+      ],
+      "argc": 5,
+      "event": "rsa_use",
+      "algorithm": "RSA",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "rsa_handle",
+          "arg": 3,
+          "kind": "opaque"
+        },
+        {
+          "role": "rsa_padding",
+          "arg": 4,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 3,
+      "arg_sizes": {
+        "0": 4,
+        "4": 4
+      },
+      "writes": [],
+      "success": "positive32"
+    },
+    {
+      "names": [
+        "RSA_set0_key"
+      ],
+      "argc": 4,
+      "event": "rsa_setkey",
+      "algorithm": "RSA",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "n",
+          "arg": 1,
+          "kind": "opaque"
+        },
+        {
+          "role": "e",
+          "arg": 2,
+          "kind": "opaque"
+        },
+        {
+          "role": "d",
+          "arg": 3,
+          "kind": "opaque"
+        }
+      ],
+      "context_arg": 0,
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "BN_bin2bn"
+      ],
+      "argc": 3,
+      "event": "bignum_import",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "bignum_bytes",
+          "arg": 0,
+          "kind": "bytes",
+          "length_arg": 1
+        }
+      ],
+      "success": "pointer",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "BN_set_word"
+      ],
+      "argc": 2,
+      "event": "bignum_word",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "word",
+          "arg": 1,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "success": "bool",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_PKEY_CTX_set_rsa_padding"
+      ],
+      "argc": 2,
+      "event": "rsa_padding",
+      "algorithm": "RSA",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "rsa_padding",
+          "arg": 1,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "success": "openssl",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_PKEY_CTX_set_rsa_oaep_md",
+        "EVP_PKEY_CTX_set_rsa_mgf1_md"
+      ],
+      "argc": 2,
+      "event": "rsa_hash",
+      "algorithm": "RSA",
+      "mode": "unknown",
+      "fields": [],
+      "context_arg": 0,
+      "hash_arg": 1,
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_PKEY_CTX_set0_rsa_oaep_label"
+      ],
+      "argc": 3,
+      "event": "context_use",
+      "algorithm": "RSA",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "oaep_label",
+          "arg": 1,
+          "kind": "bytes",
+          "length_arg": 2
+        }
+      ],
+      "context_arg": 0,
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "EVP_PKEY_encrypt",
+        "EVP_PKEY_decrypt"
+      ],
+      "argc": 5,
+      "event": "context_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [],
+      "context_arg": 0,
+      "notes": [
+        "EVP_PKEY is generic; only claim RSA after RSA-specific context evidence."
+      ],
+      "success": "openssl",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "BCryptOpenAlgorithmProvider"
+      ],
+      "argc": 4,
+      "event": "cng_open",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "algorithm_name",
+          "arg": 1,
+          "kind": "utf16"
+        },
+        {
+          "role": "handle_out",
+          "arg": 0,
+          "kind": "pointer"
+        }
+      ],
+      "output_arg": 0,
+      "success": "ntstatus",
+      "arg_sizes": {
+        "3": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "BCryptSetProperty"
+      ],
+      "argc": 5,
+      "event": "cng_property",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "property_name",
+          "arg": 1,
+          "kind": "utf16"
+        },
+        {
+          "role": "property_data",
+          "arg": 2,
+          "kind": "bytes",
+          "length_arg": 3
+        }
+      ],
+      "context_arg": 0,
+      "success": "ntstatus",
+      "arg_sizes": {
+        "3": 4,
+        "4": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "BCryptGenerateSymmetricKey"
+      ],
+      "argc": 7,
+      "event": "cng_key",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key",
+          "arg": 4,
+          "kind": "bytes",
+          "length_arg": 5
+        }
+      ],
+      "context_arg": 0,
+      "output_arg": 1,
+      "success": "ntstatus",
+      "arg_sizes": {
+        "3": 4,
+        "5": 4,
+        "6": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "BCryptImportKey"
+      ],
+      "argc": 9,
+      "event": "cng_import",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "blob_type",
+          "arg": 2,
+          "kind": "utf16"
+        },
+        {
+          "role": "key_blob",
+          "arg": 6,
+          "kind": "bytes",
+          "length_arg": 7
+        }
+      ],
+      "context_arg": 0,
+      "output_arg": 3,
+      "success": "ntstatus",
+      "arg_sizes": {
+        "5": 4,
+        "7": 4,
+        "8": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "BCryptImportKeyPair"
+      ],
+      "argc": 7,
+      "event": "cng_import",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "blob_type",
+          "arg": 2,
+          "kind": "utf16"
+        },
+        {
+          "role": "key_blob",
+          "arg": 4,
+          "kind": "bytes",
+          "length_arg": 5
+        }
+      ],
+      "context_arg": 0,
+      "output_arg": 3,
+      "success": "ntstatus",
+      "arg_sizes": {
+        "5": 4,
+        "6": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "BCryptEncrypt",
+        "BCryptDecrypt"
+      ],
+      "argc": 10,
+      "event": "cng_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "iv",
+          "arg": 4,
+          "kind": "bytes",
+          "length_arg": 5
+        },
+        {
+          "role": "padding_info",
+          "arg": 3,
+          "kind": "pointer"
+        },
+        {
+          "role": "flags",
+          "arg": 9,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "success": "ntstatus",
+      "arg_sizes": {
+        "2": 4,
+        "5": 4,
+        "7": 4,
+        "9": 4
+      },
+      "writes": [
+        {
+          "arg": 4,
+          "length_arg": 5
+        },
+        {
+          "arg": 6,
+          "length_arg": 7
+        }
+      ]
+    },
+    {
+      "names": [
+        "BCryptDestroyKey"
+      ],
+      "argc": 1,
+      "event": "destroy_context",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [],
+      "context_arg": 0,
+      "success": "ntstatus",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "BCryptCloseAlgorithmProvider"
+      ],
+      "argc": 2,
+      "event": "destroy_context",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [],
+      "context_arg": 0,
+      "success": "ntstatus",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "CryptImportKey"
+      ],
+      "argc": 6,
+      "event": "capi_import",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "key_blob",
+          "arg": 1,
+          "kind": "bytes",
+          "length_arg": 2
+        }
+      ],
+      "context_arg": 0,
+      "output_arg": 5,
+      "success": "bool",
+      "arg_sizes": {
+        "2": 4,
+        "4": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "CryptSetKeyParam"
+      ],
+      "argc": 4,
+      "event": "capi_property",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "parameter",
+          "arg": 1,
+          "kind": "scalar"
+        },
+        {
+          "role": "parameter_pointer",
+          "arg": 2,
+          "kind": "pointer"
+        }
+      ],
+      "context_arg": 0,
+      "success": "bool",
+      "arg_sizes": {
+        "1": 4,
+        "3": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "CryptEncrypt"
+      ],
+      "argc": 7,
+      "event": "capi_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "final",
+          "arg": 2,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "success": "bool",
+      "arg_sizes": {
+        "2": 4,
+        "3": 4,
+        "6": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "CryptDecrypt"
+      ],
+      "argc": 6,
+      "event": "capi_use",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "final",
+          "arg": 2,
+          "kind": "scalar"
+        }
+      ],
+      "context_arg": 0,
+      "success": "bool",
+      "arg_sizes": {
+        "2": 4,
+        "3": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "CryptDestroyKey"
+      ],
+      "argc": 1,
+      "event": "destroy_context",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [],
+      "context_arg": 0,
+      "success": "bool",
+      "arg_sizes": {},
+      "writes": []
+    },
+    {
+      "names": [
+        "PKCS5_PBKDF2_HMAC"
+      ],
+      "argc": 8,
+      "event": "kdf",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "password",
+          "arg": 0,
+          "kind": "bytes",
+          "length_arg": 1
+        },
+        {
+          "role": "salt",
+          "arg": 2,
+          "kind": "bytes",
+          "length_arg": 3
+        },
+        {
+          "role": "iterations",
+          "arg": 4,
+          "kind": "scalar"
+        },
+        {
+          "role": "derived_key_length",
+          "arg": 6,
+          "kind": "scalar"
+        }
+      ],
+      "derived_output_arg": 7,
+      "derived_length_arg": 6,
+      "success": "openssl",
+      "arg_sizes": {
+        "1": 4,
+        "3": 4,
+        "4": 4,
+        "6": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "getrandom"
+      ],
+      "argc": 3,
+      "event": "random",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "random_output",
+          "arg": 0,
+          "kind": "pointer"
+        }
+      ],
+      "random_output_arg": 0,
+      "random_length_arg": 1,
+      "success": "positive",
+      "arg_sizes": {
+        "2": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "RAND_bytes"
+      ],
+      "argc": 2,
+      "event": "random",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "random_output",
+          "arg": 0,
+          "kind": "pointer"
+        }
+      ],
+      "random_output_arg": 0,
+      "random_length_arg": 1,
+      "success": "openssl",
+      "arg_sizes": {
+        "1": 4
+      },
+      "writes": []
+    },
+    {
+      "names": [
+        "BCryptGenRandom"
+      ],
+      "argc": 4,
+      "event": "random",
+      "algorithm": "unknown",
+      "mode": "unknown",
+      "fields": [
+        {
+          "role": "random_output",
+          "arg": 1,
+          "kind": "pointer"
+        }
+      ],
+      "random_output_arg": 1,
+      "random_length_arg": 2,
+      "success": "ntstatus",
+      "arg_sizes": {
+        "2": 4,
+        "3": 4
+      },
+      "writes": []
+    }
+  ]
+}
